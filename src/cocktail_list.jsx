@@ -1,26 +1,40 @@
+import React, { useState, useEffect } from 'react'; 
+import Cocktail from './cocktail';
+
 function Cocktail_list() {
+    const [bebidas, setBebidas] = useState([]);
+    
+    let url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`;
+
+    useEffect(() => {
+        let getDatos = async () => {
+            try {
+                let response = await fetch(url);
+                let data = await response.json();
+                let ids = data.drinks.map(drink => drink.idDrink);
+                setBebidas(ids);
+            } catch {
+                console.error('Error');
+            }
+        };
+
+        getDatos();
+    }, []); 
+
+
+    //console.log(bebidas.length);
+    //console.log(bebidas);
+
     return (
+        //<h1>Una lista de cocktails</h1>
         <main>
             <section className="section">
                 <h2 className="section-title">cocktails</h2>
                 <div className="cocktails-center">
 
-
-                    {
-                        //Habrá que hacer un articulo por cada cocktail
-                    }
-                    <article className="cocktail">
-                        <div className="img-container"><img
-                                src="https://www.thecocktaildb.com/images/media/drink/2x8thr1504816928.jpg" alt="A1"></img>
-                        </div>
-                        <div className="cocktail-footer">
-                            <h3>A1</h3>
-                            <h4>Cocktail glass</h4>
-                            <p>Alcoholic</p><a className="btn btn-primary btn-details" href="/cocktail/17222">details</a>
-                        </div>
-                    </article>
-                    
-                    
+                {bebidas.map(id => (
+                    <Cocktail key={id} id={id} />
+                ))} 
                 </div>
             </section>
         </main>
