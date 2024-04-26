@@ -1,7 +1,9 @@
+//Componente que muestra la lista de bebidas
 import React, { useState, useEffect } from 'react'; 
 import Cocktail from './cocktail';
 
 function Cocktail_list() {
+    //Lo primero que se hace es recoger los datos de la API y guardar en un array los id de todas las bebidas
     const [bebidas, setBebidas] = useState([]);
     
     let url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`;
@@ -26,12 +28,11 @@ function Cocktail_list() {
     //console.log(bebidas);
 
     return (
-        //<h1>Una lista de cocktails</h1>
         <main>
             <section className="section">
                 <h2 className="section-title">cocktails</h2>
                 <div className="cocktails-center">
-
+                {/*Por cada bebida se llama al componente Cocktail() pasandole el id*/}
                 {bebidas.map(id => (
                     <Cocktail key={id} id={id} />
                 ))} 

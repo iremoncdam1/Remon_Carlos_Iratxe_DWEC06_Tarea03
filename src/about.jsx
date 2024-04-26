@@ -1,3 +1,4 @@
+//Componente para mostar la información sobre la empresa
 function About() {
   return (
     <section className="section about-section">
